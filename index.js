@@ -23,13 +23,13 @@ app.post('/sendMessage', (req, res) => {
 
     var smtpTransport = nodemailer.createTransport({
         service: 'Gmail',
+        host: 'smtp.gmail.com',
         port: 465,
         auth: {
             user: process.env.DB_USER,
             pass: process.env.DB_PASS
         }
     });
-
     var mailOptions = {
         from: data.email,
         to: process.env.DB_USER,
@@ -38,7 +38,6 @@ app.post('/sendMessage', (req, res) => {
           <p>${data.email}</p>
           <p>${data.message}</p>`
     };
-
     smtpTransport.sendMail(mailOptions,
         (error, response) => {
             if (error) {
