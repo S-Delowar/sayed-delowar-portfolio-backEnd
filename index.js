@@ -22,23 +22,22 @@ app.post('/sendMessage', (req, res) => {
     console.log(data);
 
     var smtpTransport = nodemailer.createTransport({
-        service: 'Gmail',
+        host: 'mail.sayed-delowar.com',
         port: 465,
         auth: {
             user: process.env.DB_USER,
             pass: process.env.DB_PASS
         }
     });
-
     var mailOptions = {
         from: data.email,
         to: process.env.DB_USER,
         subject: 'Portfolio Message',
-        html: `<p>${data.name}</p>
-          <p>${data.email}</p>
-          <p>${data.message}</p>`
+        html: `<p>Name: ${data.name}</p>
+          <p>Email: ${data.email}</p>
+          <p> Subject: ${data.subject}</p>
+          <p>Message: ${data.message}</p>`
     };
-
     smtpTransport.sendMail(mailOptions,
         (error, response) => {
             if (error) {
